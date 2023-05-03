@@ -18,42 +18,39 @@ public class UsersController : Controller
     }
 
 
-
-
     [HttpGet]
     public IActionResult SignUp()
     {
         return View();
     }
+
     [HttpPost]
     public async Task<IActionResult> SignUp([FromForm] CreateUserDto createUserDto)
     {
+        
+        var user = new User()   
+        { 
+            FirstName = createUserDto.FirstName,
+            LastName = createUserDto.LastName,
+            PhoneNumber = createUserDto.PhoneNumber,
+            UserName = createUserDto.Username
+        };
+        
+        var result = await _userManager.CreateAsync(user, createUserDto.Password);
+
         if (!ModelState.IsValid)
         {
             return View(createUserDto);
         }
-        var user = new User()
-        { 
-            FirstName = createUserDto.Firtname,
-            LastName = createUserDto.Lastname,
-            PhoneNumber = createUserDto.PhoneNumber,
-            UserName = createUserDto.Username
-        };
-
-        var result = await _userManager.CreateAsync(user, createUserDto.Password);
-
-        if (result.Succeeded)
+        if (!result.Succeeded)
         {
-            await _signInManager.SignInAsync(user, isPersistent: true);
+            ModelState.AddModelError("Username", result.Errors.First().Description);
+            return View();
         }
-        else
-        {
-            foreach (var item in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, item.Description);
-            }
-        }
-        return Ok();
+
+        await _signInManager.SignInAsync(user, isPersistent: true);
+
+        return RedirectToAction("Profile");
     }
 
 
@@ -82,13 +79,13 @@ public class UsersController : Controller
 
 
 
+    
     [Authorize]
-    public IActionResult Profile(User user)
+    public async Task<IActionResult> Profile()
     {
+        var user = await _userManager.GetUserAsync(User);
         return View(user);
     }
-
-
     public async Task<IActionResult> LogOut()
     {
         await _signInManager.SignOutAsync();

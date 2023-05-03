@@ -3,21 +3,18 @@
 
 <h6>Sign Up</h6>
 
-
-
-
 <form class="row g-3" style="width: 400px" asp-controller="Users" asp-action="SignUp" enctype="multipart/form-data" method="post">
     <div>
         <input name="Photo" class="form-control" asp-for="Photo" type="file" />
         <span asp-validation-for="Photo"></span>
     </div>
     <div>
-        <input name="firstname" class="form-control" asp-for="Firtname" type="text" placeholder="First name" />
-        <span asp-validation-for="Firtname"></span>
+        <input name="Firstname" class="form-control" asp-for="FirstName" type="text" placeholder="First name" />
+        <span asp-validation-for="FirstName"></span>
     </div>
     <div>
-        <input name="lastname" class="form-control" asp-for="Lastname" type="text" placeholder="Last name" />
-        <span asp-validation-for="Lastname"></span>
+        <input name="Lastname" class="form-control" asp-for="LastName" type="text" placeholder="Last name" />
+        <span asp-validation-for="LastName"></span>
     </div>
     <div>
         <input name="Username" class="form-control" asp-for="Username" type="text" placeholder="Username" />

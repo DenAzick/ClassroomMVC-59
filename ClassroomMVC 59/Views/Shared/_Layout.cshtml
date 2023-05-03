@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -25,6 +26,19 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        @{
+                            if (User.HasClaim(c => c.Type == ClaimTypes.NameIdentifier))
+                            {
+                                <a class="btn btn-primary btn-lg btn-block position-absolute top-0 end-0" asp-controller="Users" asp-action="Profile" type="button">Profile</a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-primary btn-lg btn-block" asp-controller="Users" asp-action="SignUp" type="button">SignUp</a>
+
+                                <a class="btn btn-secondary btn-lg btn-block" asp-controller="Users" asp-action="SignIn" type="button">SignIn</a>
+                            }
+                        }
+
                     </ul>
                 </div>
             </div>

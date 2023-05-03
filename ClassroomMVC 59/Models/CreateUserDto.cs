@@ -4,14 +4,10 @@ namespace ClassroomMVC_59.Models;
 
 public class CreateUserDto
 {
-
-    [Required]
-    [MinLength(3)]
-    public string Firtname { get; set; }
-
-    [Required]
-    [MinLength(3)]
-    public string Lastname { get; set; }
+    
+    public string FirstName { get; set; }
+    
+    public string LastName { get; set; }
     public string Username { get; set; }
 
     [MinLength(6)]

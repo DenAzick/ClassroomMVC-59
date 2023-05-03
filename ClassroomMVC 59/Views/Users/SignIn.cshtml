@@ -6,7 +6,7 @@
 
 <h1>SignIn</h1>
 
-<form class="row g-3" style="width: 400px" asp-controller="Users" asp-action="SignUp" enctype="multipart/form-data" method="post">
+<form class="row g-3" style="width: 400px" asp-controller="Users" asp-action="SignIn" enctype="multipart/form-data" method="post">
     
     <div>
         <input name="Username" class="form-control" asp-for="Username" type="text" placeholder="Username" />
@@ -17,7 +17,8 @@
         <span asp-validation-for="Password"></span>
     </div>
    
-    <button class="form-control" type="submit">Sign Up</button>
-    @*<a class="link-info" asp-controller="Users" asp-action="SignIn">Sign In</a>*@
+    <button class="form-control" type="submit">Sign In</button>
+    
+    <br/>  
     <a class="btn btn-primary" asp-controller="Users" asp-action="SignUp" role="button">Sign Up</a>
 </form>

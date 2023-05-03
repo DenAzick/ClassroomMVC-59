@@ -7,11 +7,6 @@ namespace ClassroomData.Context;
 
 public class AppDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
 {
-    //public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-    //{
-
-    //}
-
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
 
@@ -33,7 +28,7 @@ public class AppDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
         builder.Entity<User>().Property(u => u.FirstName)
             .HasColumnName("firstname")
             .HasMaxLength(20)
-            .IsRequired();
+            .IsRequired(false);
 
         builder.Entity<User>().Property(u => u.LastName)
             .HasColumnName("lastname")
@@ -46,9 +41,9 @@ public class AppDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
 
     }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlServer("Server=sql.bsite.net\\MSSQL2016; Database=denazick_; User Id=denazick_; Password=den5347; TrustServerCertificate=True;");
-    }
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //{
+    //    optionsBuilder.UseSqlServer("Server=sql.bsite.net\\MSSQL2016; Database=denazick_; User Id=denazick_; Password=den5347; TrustServerCertificate=True;");
+    //}
 
 }
