@@ -1,0 +1,37 @@
+﻿@model CreateUserDto;
+
+
+<h6>Sign Up</h6>
+
+
+
+
+<form class="row g-3" style="width: 400px" asp-controller="Users" asp-action="SignUp" enctype="multipart/form-data" method="post">
+    <div>
+        <input name="Photo" class="form-control" asp-for="Photo" type="file" />
+        <span asp-validation-for="Photo"></span>
+    </div>
+    <div>
+        <input name="firstname" class="form-control" asp-for="Firtname" type="text" placeholder="First name" />
+        <span asp-validation-for="Firtname"></span>
+    </div>
+    <div>
+        <input name="lastname" class="form-control" asp-for="Lastname" type="text" placeholder="Last name" />
+        <span asp-validation-for="Lastname"></span>
+    </div>
+    <div>
+        <input name="Username" class="form-control" asp-for="Username" type="text" placeholder="Username" />
+        <span asp-validation-for="Username"></span>
+    </div>
+    <div>
+        <input name="Password" class="form-control" asp-for="Password" type="text" placeholder="Password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+    <div>
+        <input name="PhoneNumber" class="form-control" asp-for="PhoneNumber" type="text" placeholder="XXXXXXXXX" />
+        <span asp-validation-for="PhoneNumber"></span>
+    </div>
+    <button class="form-control" type="submit">Sign Up</button>
+    @*<a class="link-info" asp-controller="Users" asp-action="SignIn">Sign In</a>*@
+    <a class="btn btn-primary" asp-controller="Users" asp-action="SignIn" role="button">Sign In</a>
+</form>
