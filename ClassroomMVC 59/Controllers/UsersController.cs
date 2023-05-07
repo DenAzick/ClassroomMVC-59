@@ -27,7 +27,11 @@ public class UsersController : Controller
     [HttpPost]
     public async Task<IActionResult> SignUp([FromForm] CreateUserDto createUserDto)
     {
-        
+        if (!ModelState.IsValid)
+        {
+            return View(createUserDto);
+        }
+
         var user = new User()   
         { 
             FirstName = createUserDto.FirstName,
@@ -38,10 +42,7 @@ public class UsersController : Controller
         
         var result = await _userManager.CreateAsync(user, createUserDto.Password);
 
-        if (!ModelState.IsValid)
-        {
-            return View(createUserDto);
-        }
+        
         if (!result.Succeeded)
         {
             ModelState.AddModelError("Username", result.Errors.First().Description);
@@ -65,32 +66,34 @@ public class UsersController : Controller
     {
         var result = await _signInManager.PasswordSignInAsync(signInDto.Username, signInDto.Password, true, false);
 
-        if (result.Succeeded)
+        if (!result.Succeeded)
         {
-            return RedirectToAction("Index", "Home");
+            ModelState.AddModelError("Username", "Username or Password is incorrect.");
+            return View();
         }
-        else
-        {
-            ModelState.AddModelError("", "Неправильный логин и (или) пароль");
-        }
-        return View(signInDto);
 
+        return RedirectToAction("Profile");
     }
-
-
-
     
+
+
+
     [Authorize]
     public async Task<IActionResult> Profile()
     {
         var user = await _userManager.GetUserAsync(User);
         return View(user);
     }
+
+
+
     public async Task<IActionResult> LogOut()
     {
         await _signInManager.SignOutAsync();
         return RedirectToAction("SignIn", "Users");
     }
+
+    
 
 
 

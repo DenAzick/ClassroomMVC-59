@@ -1,4 +1,6 @@
 ﻿@model ClassroomData.Entities.User
+@using System.Security.Claims;
+
 @{
     ViewData["Title"] = "Profile";
 }
@@ -9,3 +11,17 @@
 <h1>@Model.FirstName</h1>
 <h1>@Model.LastName</h1>
 <h1>@Model.UserName</h1>
+
+<a class="btn btn-primary" asp-controller="Users" asp-action="LogOut" role="button">Log Out</a>
+
+
+
+@{
+    @if (User.HasClaim(u => u.Type == ClaimTypes.NameIdentifier))
+    {
+        <a class="btn btn-primary" asp-controller="Schools" asp-action="CreateSchool" role="button">CreateSchool</a>
+
+    }
+
+  
+}

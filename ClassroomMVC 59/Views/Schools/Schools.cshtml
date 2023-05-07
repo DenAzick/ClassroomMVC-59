@@ -1,0 +1,26 @@
+﻿@model List<ClassroomData.Entities.School>
+
+<h1>Schools </h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Users</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (var i = 0; i < Model.Count; i++)
+        {
+            var school = Model[i];
+
+            <tr>
+                <th scope="row">@(i + 1)</th>
+                <td>@school.Name</td>
+                <td>@school.Description</td>
+                <td>@school.Users?.Count</td>
+            </tr>
+        }
+    </tbody>
+</table>
