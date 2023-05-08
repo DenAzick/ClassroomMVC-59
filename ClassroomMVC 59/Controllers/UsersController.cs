@@ -1,5 +1,6 @@
 ﻿using ClassroomData.Entities;
 using ClassroomMVC_59.Models;
+using ClassroomMVC_59.School;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -32,6 +33,8 @@ public class UsersController : Controller
             return View(createUserDto);
         }
 
+       
+
         var user = new User()   
         { 
             FirstName = createUserDto.FirstName,
@@ -39,7 +42,11 @@ public class UsersController : Controller
             PhoneNumber = createUserDto.PhoneNumber,
             UserName = createUserDto.Username
         };
-        
+        if (createUserDto.Photo != null)
+        {
+            user.PhotoUrl = await FileHelper.SaveUserFile(createUserDto.Photo);
+        }
+
         var result = await _userManager.CreateAsync(user, createUserDto.Password);
 
         

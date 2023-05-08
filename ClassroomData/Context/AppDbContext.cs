@@ -15,6 +15,10 @@ public class AppDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
     public DbSet<User> Users { get; set; }
     public DbSet<School> Schools { get; set; }
     public DbSet<UserSchool> UserSchools { get; set; }
+    public DbSet<Science> Sciences { get; set; }
+    public DbSet<UserScience> UserSciences { get; set; }
+
+    public DbSet<JoinScienceRequest> JoinScienceRequests { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

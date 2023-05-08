@@ -2,6 +2,7 @@ using ClassroomData.Context;
 using ClassroomData.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using ClassroomMVC_59.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,16 @@ builder.Services.AddIdentity<User, IdentityRole<Guid>>(options =>
     options.Password.RequireUppercase = false;
     options.Password.RequireNonAlphanumeric = false;
 }).AddEntityFrameworkStores<AppDbContext>();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Users/SignIn";
+});
+
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddScoped<UserProvider>();
+
 
 var app = builder.Build();
 

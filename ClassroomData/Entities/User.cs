@@ -14,5 +14,7 @@ public  class User : IdentityUser<Guid>
     public string? PhotoUrl { get; set; }
 
     public List<UserSchool> Schools { get; set; }
+    public List<UserScience> UserSciences { get; set; }
+
     //public EUserStatus Status { get; set; }
 }

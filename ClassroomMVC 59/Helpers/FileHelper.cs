@@ -1,4 +1,6 @@
 ﻿
+using ClassroomMVC_59.Models;
+
 namespace ClassroomMVC_59.School;
 
 public class FileHelper
@@ -14,7 +16,7 @@ public class FileHelper
 
     }
 
-    public async Task<string> SaveUserFile(IFormFile file)
+    public static async Task<string> SaveUserFile(IFormFile file)
     {
         return await SaveFile(file,"UserFiles");
     }
@@ -26,9 +28,11 @@ public class FileHelper
 
     public static async Task<string> SaveFile(IFormFile file, string folder)
     {
-        CheckDirectory(folder);
+        var schoolname = new CreateSchoolDto();
 
-        var filename = Guid.NewGuid() + Path.GetExtension(file.FileName);
+        CheckDirectory(Path.Combine(wwwroot, folder));
+
+        var filename = /*schoolname.Name.ToString() +*/ Guid.NewGuid() + Path.GetExtension(file.FileName);
 
         var memoryStream = new MemoryStream();
         await file.CopyToAsync(memoryStream);

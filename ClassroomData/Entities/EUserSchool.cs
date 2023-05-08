@@ -7,3 +7,9 @@ public enum EUserSchool
     Teacher,
     Student
 }
+
+public enum EUserScience
+{
+    Teacher,
+    Student
+}

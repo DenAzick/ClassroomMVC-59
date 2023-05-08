@@ -1,0 +1,14 @@
+﻿@using ClassroomData.Entities
+@using ClassroomMVC_59.Helpers
+@model School
+@inject UserProvider UserProvider
+
+@{
+    if (Model.Users.Any(s => s.UserId == UserProvider.UserId 
+        && (s.Type == EUserSchool.Creator 
+            || s.Type == EUserSchool.Admin)))
+    {
+        <a class="btn btn-outline-primary" asp-controller="Schools" asp-action="UpdateSchool" asp-route-id="@ViewBag.Id">Update</a>
+    }
+
+}

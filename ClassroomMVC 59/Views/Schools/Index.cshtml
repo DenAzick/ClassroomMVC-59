@@ -8,6 +8,8 @@
             <th scope="col">Name</th>
             <th scope="col">Description</th>
             <th scope="col">Users</th>
+            <th scope="col">View</th>
+
         </tr>
     </thead>
     <tbody>
@@ -20,6 +22,10 @@
                 <td>@school.Name</td>
                 <td>@school.Description</td>
                 <td>@school.Users?.Count</td>
+                <td><a class="btn btn-outline-info" asp-action="GetSchoolById" asp-route-id="@school.Id">
+                    view
+                </a></td>
+
             </tr>
         }
     </tbody>

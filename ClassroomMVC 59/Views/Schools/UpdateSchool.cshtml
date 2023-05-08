@@ -1,12 +1,16 @@
-﻿@model CreateSchoolDto
+﻿@model UpdateSchoolDto
 
 @{
-    ViewData["Title"] = "Create School";
+    ViewData["Title"] = "Update School";
 }
 
 
-<h1 style="margin: auto; text-align: center">Sign In</h1>
-<form class="row g-3" style="width: 400px; margin: auto" asp-controller="Schools" enctype="multipart/form-data" asp-action="CreateSchool" method="post">
+<h1 style="margin: auto; text-align: center">Update School</h1>
+<form class="row g-3" style="width: 400px; margin: auto" 
+asp-controller="Schools" enctype="multipart/form-data" 
+asp-action="UpdateSchool"
+asp-route-id="@ViewBag.Id"
+method="post">
     <div>
         <input name="Photo" class="form-control" asp-for="Photo" type="file" />
         <span class="text-danger" asp-validation-for="Photo"></span>
