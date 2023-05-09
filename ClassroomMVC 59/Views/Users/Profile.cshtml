@@ -8,20 +8,119 @@
 <h6>Profile</h6>
 
 
-<h1>@Model.FirstName</h1>
-<h1>@Model.LastName</h1>
-<h1>@Model.UserName</h1>
-
-<a class="btn btn-primary" asp-controller="Users" asp-action="LogOut" role="button">Log Out</a>
 
 
 
-@{
-    @if (User.HasClaim(u => u.Type == ClaimTypes.NameIdentifier))
-    {
-        <a class="btn btn-primary" asp-controller="Schools" asp-action="CreateSchool" role="button">CreateSchool</a>
 
-    }
 
-  
+
+@if (User.HasClaim(u => u.Type == ClaimTypes.NameIdentifier))
+{
+    <a class="btn btn-outline-success" asp-controller="Users" asp-action="EditUser" role="button">Edit User</a>
 }
+
+
+
+
+
+
+<section style="background-color: #eee;">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col">
+                <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="https://localhost:7288/">Home</a></li>
+                        <li class="breadcrumb-item"><a href="https://localhost:7288/Users/Profile/">User</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <img src="@Model.PhotoUrl.ToString();" alt="avatar"
+                             class="rounded-circle img-fluid" style="width: 150px;">
+                        <h5 class="my-3">John Smith</h5>
+                        @*<p class="text-muted mb-1"></p>
+                        <p class="text-muted mb-4"></p>*@
+                        <div class="d-flex justify-content-center mb-2">
+                            @if (User.HasClaim(u => u.Type == ClaimTypes.NameIdentifier))
+                            {
+                                <a class="btn btn-outline-success" asp-controller="Schools" asp-action="CreateSchool" role="button">CreateSchool</a>
+                            }
+                            @if (User.HasClaim(u => u.Type == ClaimTypes.NameIdentifier))
+                            {
+                                <a class="btn btn-outline-danger" asp-controller="Users" asp-action="LogOut" role="button">Log Out</a>
+                            }
+                           
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Full Name</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">@Model.FirstName @Model.LastName</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Username</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">@Model.UserName</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Phone</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">@Model.PhoneNumber</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Schools</p>
+                            </div>
+                            <div class="col-sm-9">
+                                @*@for (int i = 0; i < Model.Schools.Count; i++)
+                                {
+                                    <p class="text-muted mb-0">@Model.Schools</p>
+                                }*@
+                                
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Sciences</p>
+                            </div>
+                            @*<div class="col-sm-9">
+                                <p class="text-muted mb-0">@Model.UserSciences</p>
+                            </div>*@
+                        </div>
+                    </div>
+                </div>
+                
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

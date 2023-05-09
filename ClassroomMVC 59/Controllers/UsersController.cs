@@ -4,6 +4,7 @@ using ClassroomMVC_59.School;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace ClassroomMVC_59.Controllers;
 
@@ -33,10 +34,8 @@ public class UsersController : Controller
             return View(createUserDto);
         }
 
-       
-
-        var user = new User()   
-        { 
+        var user = new User()
+        {
             FirstName = createUserDto.FirstName,
             LastName = createUserDto.LastName,
             PhoneNumber = createUserDto.PhoneNumber,
@@ -49,7 +48,6 @@ public class UsersController : Controller
 
         var result = await _userManager.CreateAsync(user, createUserDto.Password);
 
-        
         if (!result.Succeeded)
         {
             ModelState.AddModelError("Username", result.Errors.First().Description);
@@ -68,7 +66,7 @@ public class UsersController : Controller
         return View();
     }
 
-    [HttpPost]  
+    [HttpPost]
     public async Task<IActionResult> SignIn(SignInDto signInDto)
     {
         var result = await _signInManager.PasswordSignInAsync(signInDto.Username, signInDto.Password, true, false);
@@ -81,7 +79,41 @@ public class UsersController : Controller
 
         return RedirectToAction("Profile");
     }
-    
+
+
+
+    public async Task<IActionResult> EditUser()
+    {
+        var user = await _userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+        return View(new UpdateUserDto()
+        {
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Username = user.UserName,
+            PhoneNumber = user.PhoneNumber
+        });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> EditUser(Guid id, UpdateUserDto updateUserDto)
+    {
+        var user = await _userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+        user.FirstName = updateUserDto.FirstName;
+        user.LastName = updateUserDto.LastName;
+        user.PhoneNumber = updateUserDto.PhoneNumber;
+        user.UserName = updateUserDto.Username;
+
+        if (updateUserDto.Photo != null)
+        {
+            user.PhotoUrl = await FileHelper.SaveUserFile(updateUserDto.Photo);
+        }
+        await _userManager.UpdateAsync(user);
+
+        return RedirectToAction("Profile", new { id = user.Id });
+    }
+
 
 
 
@@ -100,7 +132,7 @@ public class UsersController : Controller
         return RedirectToAction("SignIn", "Users");
     }
 
-    
+
 
 
 

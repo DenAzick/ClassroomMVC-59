@@ -13,8 +13,13 @@ public  class User : IdentityUser<Guid>
 
     public string? PhotoUrl { get; set; }
 
-    public List<UserSchool> Schools { get; set; }
-    public List<UserScience> UserSciences { get; set; }
+    public List<UserSchool>? Schools { get; set; }
+    public List<UserScience>? UserSciences { get; set; }
+
+    public static implicit operator Func<object, object>(User v)
+    {
+        throw new NotImplementedException();
+    }
 
     //public EUserStatus Status { get; set; }
 }
