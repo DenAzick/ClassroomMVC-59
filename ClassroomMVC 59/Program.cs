@@ -13,7 +13,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    options.UseSqlServer("Server=sql.bsite.net\\MSSQL2016; Database=denazick_; User Id=denazick_; Password=den5347; TrustServerCertificate=True;");
+    options.UseSqlServer("Server=sql.bsite.net\\MSSQL2016; Database=denazick_; User Id=denazick_; Password=1234; TrustServerCertificate=True;");
 });
 builder.Services.AddIdentity<User, IdentityRole<Guid>>(options =>
 {
